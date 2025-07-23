@@ -18,12 +18,14 @@
   color: #c6d0f5;
 }
 
+/* Mobile-first base styles */
 body {
   min-height: 95vh;
-  padding: 1rem;
+  padding: 0.75rem;
   display: flex;
   flex-direction: column;
-  font-size: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
 }
 
 h3 {
@@ -38,6 +40,14 @@ h3 {
 a {
   color: #f2d5cf;
   text-decoration: none;
+  /* Improve touch targets on mobile */
+  padding: 0.125rem 0;
+  display: inline-block;
+}
+
+/* Improve link spacing for touch interfaces */
+.links li {
+  margin: 0.5rem 0;
 }
 
 footer {
@@ -77,6 +87,10 @@ footer {
   color: #a6d189;
 }
 
+.linkedin:hover {
+  color: #0077b5;
+}
+
 .charm:hover {
   color: #ff6dff;
 }
@@ -87,26 +101,34 @@ footer {
 
 .output {
   width: 100%;
-  max-width: 80ch;
+  max-width: 100%;
   animation: fade 5s;
 }
 
+/* Responsive typing animation for mobile */
 .typeme {
-  width: 30ch;
-  animation: typing 2s steps(25), blink .5s step-end infinite alternate;
+  width: 100%;
+  max-width: 25ch;
+  animation: typing-mobile 2s steps(20), blink .5s step-end infinite alternate;
   white-space: nowrap;
   overflow: hidden;
-  border-right: 10px solid #f2d5cf;
+  border-right: 8px solid #f2d5cf;
 }
 
-/* animation */
-
+/* Animations */
 @keyframes fade {
   0% { opacity: 0}
   50% { opacity: 0; }
   100% { opacity: 1; }
 }
 
+/* Mobile typing animation */
+@keyframes typing-mobile {
+  0% { width: 0; }
+  100% { width: 25ch; }
+}
+
+/* Desktop typing animation */
 @keyframes typing {
   0% { width: 0; }
   100% { width: 30ch; }
@@ -116,9 +138,80 @@ footer {
   50% { border-color: transparent;}
 }
 
-/* dynamic resizing */
-@media (min-width:600px) {
+/* Responsive Media Queries - Mobile First Approach */
+
+/* Small mobile devices (up to 480px) */
+@media (max-width: 480px) {
+  body {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+  
+  .typeme {
+    max-width: 22ch;
+    animation: typing-small 2s steps(18), blink .5s step-end infinite alternate;
+    border-right-width: 6px;
+  }
+  
+  @keyframes typing-small {
+    0% { width: 0; }
+    100% { width: 22ch; }
+  }
+}
+
+/* Large mobile devices and small tablets (481px to 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+  body {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+  
+  .typeme {
+    max-width: 28ch;
+    animation: typing-medium 2s steps(22), blink .5s step-end infinite alternate;
+    border-right-width: 8px;
+  }
+  
+  @keyframes typing-medium {
+    0% { width: 0; }
+    100% { width: 28ch; }
+  }
+}
+
+/* Tablets (768px to 1023px) */
+@media (min-width: 768px) {
+  body {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+  
+  .output {
+    max-width: 70ch;
+  }
+  
+  .typeme {
+    max-width: 30ch;
+    animation: typing 2s steps(25), blink .5s step-end infinite alternate;
+    border-right-width: 10px;
+  }
+}
+
+/* Desktop and larger screens (1024px and up) */
+@media (min-width: 1024px) {
+  body {
+    font-size: 1.1rem;
+    padding: 1.25rem;
+  }
+  
+  .output {
+    max-width: 80ch;
+  }
+}
+
+/* Large desktop screens (1200px and up) */
+@media (min-width: 1200px) {
   body {
     font-size: 1.25rem;
+    padding: 1.5rem;
   }
 }
